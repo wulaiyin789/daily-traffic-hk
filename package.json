@@ -1,0 +1,24 @@
+{
+  "name": "daily-traffic-hk",
+  "version": "1.0.0",
+  "description": "Daily passenger traffic of immigration clearance in HK",
+  "repository": "https://github.com/chunlaw/daily-traffic-hk",
+  "author": "Peter Wu",
+  "license": "GPL",
+  "private": false,
+  "scripts": {
+    "crawl": "tsx src/crawl.ts",
+    "rollout": "yarn crawl && gh-pages -d dist -a"
+  },
+  "devDependencies": {
+    "@types/date-fns": "^2.6.0",
+    "@types/node": "^20.11.27",
+    "gh-pages": "^6.1.1",
+    "tsx": "^4.7.1",
+    "typescript": "^5.4.2"
+  },
+  "dependencies": {
+    "csvtojson": "^2.0.10",
+    "date-fns": "^3.6.0"
+  }
+}
