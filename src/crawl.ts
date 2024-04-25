@@ -1,6 +1,6 @@
 import csv from 'csvtojson';
 import fs, { existsSync, mkdirSync } from 'fs';
-import { startOfMonth, endOfMonth, subMonths } from 'date-fns';
+import { startOfMonth, endOfMonth, subMonths, parse, isWithinInterval } from 'date-fns';
 import path from 'path';
 
 // types
@@ -37,8 +37,8 @@ fetch(csvUrlEn)
 
         // Filter records within the date range
         const filteredData = jsonObj.filter((record: ImmigrationRecordKeyEn) => {
-          const recordDate = new Date(record.Date); // Assuming record.Date is in 'yyyy-MM-dd' format
-          return recordDate >= lastMonthStart && recordDate <= thisMonthEnd;
+          const recordDate = parse(record.Date, 'dd-MM-yyyy', new Date()); // 'dd-MM-yyyy' format
+          return isWithinInterval(recordDate, { start: lastMonthStart, end: thisMonthEnd });
         });
 
         const jsonData = JSON.stringify(filteredData);
@@ -71,8 +71,8 @@ fetch(csvUrlZh)
 
         // Filter records within the date range
         const filteredData = jsonObj.filter((record: ImmigrationRecordKeyZh) => {
-          const recordDate = new Date(record.日期); // Assuming record.Date is in 'yyyy-MM-dd' format
-          return recordDate >= lastMonthStart && recordDate <= thisMonthEnd;
+          const recordDate = parse(record.日期, 'dd-MM-yyyy', new Date()); // 'dd-MM-yyyy' format
+          return isWithinInterval(recordDate, { start: lastMonthStart, end: thisMonthEnd });
         });
 
         const jsonData = JSON.stringify(filteredData);
